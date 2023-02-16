@@ -3,10 +3,10 @@
 const express = require('express');
 const session = require('express-session');
 const expresshandlebars = require('express-handlebars');
-const joinedRoutes = require('./controllers');
+const everyRoute = require('./controllers');
 
 const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequeilize')(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.envPORT || 3001;
@@ -21,10 +21,11 @@ const {Blog, UserLogin} = require('./models')
 const sesh = {
     secret: process.env.SESSION_SECRET,
     cookie: {
+        // the cookie is estimated to expire in 2 days
         maxAge:1000*60*60*3
     },
     resave: false,
-    saveUninitilized: true,
+    saveUninitialized: true,
     store: new SequelizeStore({
         db: sequelize
     })
@@ -40,17 +41,22 @@ app.use(express.json());
 // directory of static files
 app.use(express.static('public'));
 
+// Instantiates the handlebars views engine
 const handle = expresshandlebars.create({});
 app.engine('handlebars', handle.engine);
 
-app.use(joinedRoutes);
+// use every route
+app.use(everyRoute);
+
+// route to show session cookie
 app.get("/sessions", (request, response)=>{
     
-    // request session data for login
-    request.json(request.session)
+    // respond with displaying session data
+    response.json(request.session)
 })
 
 // takes database data and will not restart database data
+// placing this sync to true will drop the tables from the database
 sequelize.sync({ force: false}).then(function(){
     app.listen(PORT, function() {
         console.log('Test for app to listen on PORT' + PORT );

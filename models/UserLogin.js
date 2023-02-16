@@ -1,17 +1,54 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
-const bcrypt = require('bcrypt')
 
-class UserLogin extends Model {}
+class User extends Model {
+    // Checks to see if what the user typed in as a password
+    // is the same as the password registered in the database
+  checkPassword(passwordLogin) {
+    return bcrypt.compareSync(passwordLogin, this.password);
+  }
+}
 
-UserLogin.init({
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
-        }
-},{
-    sequelize
-})
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [8],
+      },
+    },
+  },
+  {
+    hooks: {
+    // Before the password is submitted encrypt with bcrypt method hash 
+      beforeCreate: async (newUserData) => {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      // Makes sure the password is encrypted before updating the database
+      beforeUpdate: async (updatedUserData) => {
+        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        return updatedUserData;
+      },
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'user',
+  }
+);
 
-modeule.exports=UserLogin
+module.exports = User;
