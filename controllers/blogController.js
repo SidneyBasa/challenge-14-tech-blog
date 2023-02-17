@@ -57,13 +57,17 @@ router.delete("/:id", (request, response)=>{
            
         // checking if there blog data in the body of the request, if not return report
         if(!blogData){
+            // status 404 means the blog does not exist
             return response.status(404).json({msg:"There is no blog data"})
-        // then check if the userId of the blog post, matches the user id of the session cookie    
+        // then check if the userId of the blog post
+        // matches the current logged in user id / the id of the session cookie    
         } else if (blogData.UserId!== request.session.userId){
+            // status 403 is forbidden
             return response.status(403).json({msg: "This is not your blog post"})
         }
         Blog.destroy({
             where:{
+                // make sure the blog being destroyed is the logged in users blog
                 id:request.params.id
             }
         })
