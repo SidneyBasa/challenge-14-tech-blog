@@ -44,14 +44,10 @@ app.use(express.static('public'));
 // Instantiates the handlebars views engine
 const handle = expresshandlebars.create({});
 app.engine('handlebars', handle.engine);
+app.set('view engine', 'handlebars')
 
 // use every route
 app.use(everyRoute);
-
-// first route
-app.get("/", (request, response)=>{
-    response.send("hello welcome to the Tech Blog!")
-})
 
 // route to show session cookie
 app.get("/sessions", (request, response)=>{
