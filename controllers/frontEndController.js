@@ -8,17 +8,21 @@ const {UserLogin, Blog} = require('../models');
 // first route
 router.get("/", (request, response)=>{
     // Adding data for blog posts to the home page
-    Blog.findAll().then(blogData=>{
+    Blog.findAll({
+
+        include:[UserLogin]
+
+    }).then(blogData=>{
         // checking blogData in the terminal
         // console.log(blogData)
-        
 
         // Converting raw data to the JSON format
-      
+        // Takes the property blogpost which is defined in the model Blog at blog.js 
+        // and converts it into json format
         const handlebarBlogs = blogData.map(blogpost=>blogpost.toJSON())
         // transfer the JSON formatted data to allBlogs
         // The allBlogs key is passed into home.handlebars
-        console.log("Value of handlebarBlogs", handlebarBlogs)
+        // console.log("Value of handlebarBlogs", handlebarBlogs)
 
             response.render("home", {
             allBlogs:handlebarBlogs
