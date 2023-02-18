@@ -18,6 +18,22 @@ router.get("/", (request, response)=>{
     })
 })
 
+// Get one blog
+router.get("/:id", (request, response)=>{
+    Blog.findByPk(request.params.id,{
+        include:[UserLogin]
+    })
+    .then(blogData=>{
+        response.json(blogData)
+    })
+    .catch(error=>{
+        console.log(error);
+        response.status(500)
+        .json({msg:"blog data for this user could not be found!", error})
+    })
+})
+
+
 // route to create a blog
 router.post("/", (request, response)=>{
     

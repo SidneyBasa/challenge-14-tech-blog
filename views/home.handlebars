@@ -1,1 +1,8 @@
 <h1>Welcome to The Tech Blog!</h1>
+{{!-- <h3>The cat is currently: {{ cat }} </h3> --}}
+<h2>All blog posts</h2>
+{{!-- allBlogs is a key of a key value pair created in the frontEndController.js file --}}
+{{#each allBlogs}}
+    {{!-- blog is a key transferred from the frontEndController.js file --}}
+    <li>text: {{blogpost}}</li>
+{{/each}}
