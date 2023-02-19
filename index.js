@@ -53,6 +53,7 @@ app.use(everyRoute);
 app.get("/sessions", (request, response)=>{
     
     // respond with displaying session data
+    console.log("Test at sessions")
     response.json(request.session)
 })
 

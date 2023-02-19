@@ -21,7 +21,7 @@ router.get("/logout", (request, response)=>{
     response.send("The user has logged out")
 })
 
-// get route for all users and their blogs
+// get route for one user and the user's blogs
 router.get("/:id", (request, response)=>{
 
     // The parameter we are looking for is request.params.id
@@ -90,13 +90,16 @@ router.post("/", (request, response)=>{
 router.post("/login", (request, response)=>{
     // Find one user in the body
     UserLogin.findOne({
-        
+
         where:{
             username:request.body.username
             
         }
         
-    })
+    }
+    // console.log("Test at line 100 userLoginController.js"),
+    // console.log("Test at username", username)
+    )
     // check of if userLogin object was found
     .then(userFound=>{
         if(!userFound){

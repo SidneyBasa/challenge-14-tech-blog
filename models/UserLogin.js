@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
-class User extends Model {
+class UserLogin extends Model {
     // Checks to see if what the user typed in as a password
     // is the same as the password registered in the database
   // checkPassword(passwordLogin) {
@@ -10,7 +10,7 @@ class User extends Model {
   // }
 }
 
-User.init(
+UserLogin.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -51,4 +51,4 @@ User.init(
   }
 );
 
-module.exports = User;
+module.exports = UserLogin;
