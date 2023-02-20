@@ -111,7 +111,7 @@ router.post("/login", (request, response)=>{
             // Unencrypt the data, then check if the password matches the stored password
             if(bcrypt.compareSync(request.body.password, userFound.password)){
                 // tells sessions that you have logged in
-                request.session.userId = userFound.id;
+                request.session.userLoginId = userFound.id;
 
                 // adds the property username to the session data
                 request.session.username = userFound.username;

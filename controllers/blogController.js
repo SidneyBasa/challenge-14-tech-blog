@@ -38,13 +38,16 @@ router.get("/:id", (request, response)=>{
 router.post("/", (request, response)=>{
     
     // Route protection shell
-    if(request.session.userId) {
+    if(request.session.userLoginId) {
            Blog.create({
         
+            blog_title:request.body.blog_title,
             blogpost:request.body.blogpost,
+            blog_time:request.body.blog_time,
+            blog_date:request.body.blog_date,
     
             // Attaches the userId stored in sessions to the UserId of the chirp json data
-            UserId:request.session.userId
+            UserLoginId:request.session.userLoginId
     
         }).then(blogData=>{
             response.json(blogData)
@@ -66,7 +69,7 @@ router.post("/", (request, response)=>{
 router.delete("/:id", (request, response)=>{
     
     // Route protection shell
-    if(request.session.userId) {
+    if(request.session.userLoginId) {
            
         // find the blog by the primary key
         Blog.findByPk(request.params.id).then(blogData=>{
@@ -77,7 +80,7 @@ router.delete("/:id", (request, response)=>{
             return response.status(404).json({msg:"There is no blog data"})
         // then check if the userId of the blog post
         // matches the current logged in user id / the id of the session cookie    
-        } else if (blogData.UserId!== request.session.userId){
+        } else if (blogData.UserLoginId!== request.session.userLoginId){
             // status 403 is forbidden
             return response.status(403).json({msg: "This is not your blog post"})
         }

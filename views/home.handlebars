@@ -3,9 +3,13 @@
 <h2>All blog posts</h2>
 {{!-- allBlogs is a key of a key value pair created in the frontEndController.js file --}}
 {{#each allBlogs}}
-    <section>
-    <h3> {{User.username}} posted: </h3>
+    <section class="box">
+    <div class="blog_top">  
+        <span class="title">{{blog_title}}</span>
+    posted by: {{UserLogin.username}}  {{blog_date}}
+
+    </div>
     {{!-- blog is a key transferred from the frontEndController.js file --}}
-    <p>text: {{blogpost}}</p>
+    <p> {{blogpost}}</p>
     </section>
 {{/each}}

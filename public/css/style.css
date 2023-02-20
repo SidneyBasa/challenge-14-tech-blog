@@ -6,11 +6,60 @@
 }
 
 header, footer {
-    height: 15vh;
+    height: 10vh;
     background: darkblue;
 }
 
 main {
     min-height: 70vh;
     background: lightblue;
+}
+
+ul {
+    list-style-type: none;
+    margin: 12px;
+    padding: 10px;
+}
+
+a {
+    color: white;
+    border: 2px;
+    text-decoration: none;
+    background-color: black;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+a:hover{
+    color: blue;
+}
+
+.box{
+    height: 100px;
+    width: 500px;
+    background: black;
+    margin: 10px;
+    padding-bottom: 15px;
+}
+
+.blog_top {
+    padding: 5px;
+    background-color: darkblue;
+    color: white;
+    text-align: right; 
+    
+}
+
+.title {
+    position: absolute;
+    left: 20px;
+}
+
+h3 {
+    color: white
+}
+
+p {
+    padding: 5px;
+    color: white;
 }

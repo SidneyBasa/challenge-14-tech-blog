@@ -20,12 +20,16 @@ router.get("/", (request, response)=>{
         // Takes the property blogpost which is defined in the model Blog at blog.js 
         // and converts it into json format
         const handlebarBlogs = blogData.map(blogpost=>blogpost.toJSON())
+        // const handlebarBlogsTime = blogData.map(blog_time=>blog_time.toJSON())
+        // const handlebarBlogsDate = blogData.map(blog_date=>blog_date.toJSON())
         // transfer the JSON formatted data to allBlogs
         // The allBlogs key is passed into home.handlebars
         // console.log("Value of handlebarBlogs", handlebarBlogs)
 
             response.render("home", {
-            allBlogs:handlebarBlogs
+            allBlogs:handlebarBlogs,
+            // alltimes:handlebarBlogsTime,
+            // alldates:handlebarBlogsDate
             
         })
     })
