@@ -11,6 +11,7 @@ router.use("/api/blogs", blogRoutes);
 // connects to the routes at the comment controller
 const commentRoutes = require('./commentController.js');
 router.use("/api/comment", commentRoutes);
+// test
 
 
 // connects to the routes in the front end controller
