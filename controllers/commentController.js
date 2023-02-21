@@ -1,13 +1,14 @@
-// Wednesday February 15 2023
+// Monday February 20 2023
+// Coomment Controller
 const express = require('express');
 const router = express.Router();
 const {UserLogin, Blog, Comment} = require('../models');
 
-// get all blog posts
+// get all comments
 router.get("/", (request, response)=>{
 
     // find all blog posts in body
-    Blog.findAll()
+    Comment.findAll()
     .then(blogData=>{
         response.json(blogData)
     })
@@ -18,10 +19,10 @@ router.get("/", (request, response)=>{
     })
 })
 
-// Get one blog
+// Get one comment
 router.get("/:id", (request, response)=>{
-    Blog.findByPk(request.params.id,{
-        include:[UserLogin]
+    Comment.findByPk(request.params.id,{
+        include:[Blog]
     })
     .then(blogData=>{
         response.json(blogData)
@@ -39,13 +40,10 @@ router.post("/", (request, response)=>{
     
     // Route protection shell
     if(request.session.userLoginId) {
-           Blog.create({
+        Comment.create({
         
-            blog_title:request.body.blog_title,
-            blogpost:request.body.blogpost,
-            blog_time:request.body.blog_time,
-            blog_date:request.body.blog_date,
-    
+            comment:request.body.comment,
+
             // Attaches the userId stored in sessions to the UserId of the chirp json data
             UserLoginId:request.session.userLoginId
     
@@ -61,7 +59,7 @@ router.post("/", (request, response)=>{
         })
 
     } else {
-        return response.status(403).json({msg:"You must login or sign up to create a blog"})
+        return response.status(403).json({msg:"You must login or sign up to add a comment to a blog"})
     }
 })
 
@@ -72,7 +70,7 @@ router.delete("/:id", (request, response)=>{
     if(request.session.userLoginId) {
            
         // find the blog by the primary key
-        Blog.findByPk(request.params.id).then(blogData=>{
+        Comment.findByPk(request.params.id).then(blogData=>{
            
         // checking if there blog data in the body of the request, if not return report
         if(!blogData){
@@ -84,7 +82,7 @@ router.delete("/:id", (request, response)=>{
             // status 403 is forbidden
             return response.status(403).json({msg: "This is not your blog post"})
         }
-        Blog.destroy({
+        Comment.destroy({
             where:{
                 // make sure the blog being destroyed is the logged in users blog
                 id:request.params.id

@@ -1,9 +1,12 @@
 <h1>Login</h1>
 
-<form id="loginForm">
-    <input type="text" id="loginEmail" placeholder="enter email">
-    <input type="password" id="loginPassword">
+<form id="loginForm" autocomplete="off">
+    <input type="text" id="loginEmail" placeholder="enter username" autocomplete="off"/>
+    <input type="password" id="loginPassword" autocomplete="off"/>
     <button>Login</button>
 </form>
+<div id="signupcontainer">
+    <a href="/signup">New user? Signup for the Tech Blog here!</a>
+</div>
 
 <script src="/js/login.js"></script>

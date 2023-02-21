@@ -1,7 +1,6 @@
-<h1>Welcome to The Tech Blog!</h1>
-{{!-- <h3>The cat is currently: {{ cat }} </h3> --}}
-<h2>All blog posts</h2>
-{{!-- allBlogs is a key of a key value pair created in the frontEndController.js file --}}
+<h2>Comment page</h2>
+<h2>(Render one blog post here)</h2>
+<h3>Under construction Monday February 20 2023:</h3>
 {{#each allBlogs}}
     <section class="box">
         
@@ -15,13 +14,14 @@
     <div>
     <p> {{blogpost}}</p>
     {{!-- <p id="id_section"> blog ID test {{id}} </p> --}}
-    <a id="commented" href="/comment"> add comment</a>
     </div>
     
     </section>
 {{/each}}
 
-{{!-- <script>
-    // console.log("Test of blog document", document.children[0].children[1].children[1].children[4].children[0])
+<form id="commentForm">
+    <input type="text" id="commentInput" placeholder="comment on this blogpost">
+    <button id="commentButton">Post comment</button>
+</form>
 
-</script> --}}
+<script src="/js/comment.js"></script>
