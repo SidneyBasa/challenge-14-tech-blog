@@ -17,7 +17,7 @@ document.querySelector("#dashboardForm").addEventListener("submit",event=>{
         if(res.ok){
            location.href="/"
         } else {
-            alert("trumpet sound")
+            alert("Please login before creating a blog post")
         }
     })
 })
