@@ -4,3 +4,7 @@ A website that uses session data to login users, and creates a blog post with th
 
 Progress of tech blog home page
 ![Tech blog screenshot](https://user-images.githubusercontent.com/67940686/220055076-85132d58-3ce9-4bd7-ad46-670562054919.jpg)
+
+## deployment
+
+https://sidneytechblog.herokuapp.com/
