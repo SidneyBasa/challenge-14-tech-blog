@@ -9,7 +9,7 @@ const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
-const PORT = process.envPORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 // defining database tables
 const {Blog, UserLogin} = require('./models')
