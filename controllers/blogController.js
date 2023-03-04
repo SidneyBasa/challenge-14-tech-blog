@@ -35,6 +35,7 @@ router.get("/:id", (request, response)=>{
 
 
 // route to create a blog
+// http: // localhost:3001/api/blogs
 router.post("/", (request, response)=>{
     
     // Route protection shell
@@ -46,10 +47,12 @@ router.post("/", (request, response)=>{
             blog_time:request.body.blog_time,
             blog_date:request.body.blog_date,
     
-            // Attaches the userId stored in sessions to the UserId of the chirp json data
-            UserLoginId:request.session.userLoginId
+            // Attaches the userId stored in sessions to the UserId of the json data
+            UserLoginId:request.body.username,
+            
     
         }).then(blogData=>{
+            
             response.json(blogData)
         })
         .catch(error=>{

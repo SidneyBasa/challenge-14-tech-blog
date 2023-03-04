@@ -1,4 +1,32 @@
 <h2>Dashboard</h2>
+<h4> Blogs created by {{username}}:</h4>
+
+{{#each Blogs}}
+    
+    {{!-- {{#if UserLogin}} --}}
+    <section class="box">
+    <div class="blog_top">  
+        <span class="title">{{blog_title}}</span>
+    Date of blog: {{blog_date}}
+    </div>
+    <div>
+    {{!-- <p> {{Blog.blogpost}}</p> --}}
+    <p> {{blogpost}}</p>
+    <a id="commented" href="/comment"> add comment</a>
+    </div>
+
+    {{!-- <p id="id_section"> blog ID test {{id}} </p> --}}
+    {{!-- blog is a key transferred from the frontEndController.js file --}}
+    {{!-- test: {{username}} --}}
+    {{!-- test: {{UserLogin.username}} --}}
+    {{!-- test: {{blogData.UserLogin.username}}  --}}
+    {{!-- test: {{UserLogin.dataValues.username}} --}}
+    {{!-- {{UserLogin.username}}  {{blog_date}} --}}
+    {{!-- {{blog_date}} --}}
+    {{!-- {{allBlogs}} --}}
+    {{!-- {{/if}} --}}
+    </section>
+{{/each}}
 
 <form id="dashboardForm">
     <input type="text" id="title" placeholder="title of blog">

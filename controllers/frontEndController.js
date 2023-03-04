@@ -10,12 +10,11 @@ router.get("/", (request, response)=>{
     // Adding data for blog posts to the home page
     Blog.findAll({
 
-        include:[UserLogin],
-        include:[Comment]
+        include:[UserLogin]
 
     }).then(blogData=>{
         // checking blogData in the terminal
-        // console.log(blogData)
+        // console.log("Test of Blog.findAll get route blogData",blogData)
 
         // Converting raw data to the JSON format
         // Takes the property blogpost which is defined in the model Blog at blog.js 
@@ -25,7 +24,7 @@ router.get("/", (request, response)=>{
         // const handlebarBlogsDate = blogData.map(blog_date=>blog_date.toJSON())
         // transfer the JSON formatted data to allBlogs
         // The allBlogs key is passed into home.handlebars
-        // console.log("Value of handlebarBlogs", handlebarBlogs)
+        console.log("Value of handlebarBlogs", handlebarBlogs)
 
             response.render("home", {
             allBlogs:handlebarBlogs,
@@ -53,7 +52,25 @@ router.get("/profile", (request, response)=>{
 
 // dashboard route
 router.get("/dashboard", (request, response)=>{
-    response.render("dashboard")
+    // logged in users only, protected route
+    if(!request.session.userLoginId){
+        return response.redirect("/login")
+    }
+
+    UserLogin.findByPk(request.session.userLoginId, {
+        include:[Blog]
+    }
+    ).then(blogData=>{
+        // console.log("test of blogData", blogData)
+        // console.log("test length of blogData.length", blogData.length) // returns undefined
+        // console.log("typeof blogdata:  ", typeof blogdata) // returns undefined
+        // console.log("test of session userLoginId:", userLoginId)
+        // console.log("test of session userLoginId:", request.session.userLoginId)
+        const handlebarBlogs2 = blogData.toJSON()
+        console.log("test of handlebarBlogs2", handlebarBlogs2)
+            response.render("dashboard", handlebarBlogs2) 
+            // allBlogs2:handlebarBlogs2
+    })
 })
 
 
