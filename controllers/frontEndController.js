@@ -24,7 +24,7 @@ router.get("/", (request, response)=>{
         // const handlebarBlogsDate = blogData.map(blog_date=>blog_date.toJSON())
         // transfer the JSON formatted data to allBlogs
         // The allBlogs key is passed into home.handlebars
-        console.log("Value of handlebarBlogs", handlebarBlogs)
+        // console.log("Value of handlebarBlogs", handlebarBlogs)
 
             response.render("home", {
             allBlogs:handlebarBlogs,
@@ -50,6 +50,21 @@ router.get("/profile", (request, response)=>{
     response.render("profile")
 })
 
+// updateordelete route
+router.get("/updateordelete", (request, response)=>{
+    if(!request.session.userLoginId){
+        return response.redirect("/login")
+    }
+    UserLogin.findByPk(request.session.userLoginId, {
+        include:[Blog]
+    }
+    ).then(blogData=>{
+        const handlebarBlogs3 = blogData.toJSON()
+        console.log("test of handlebarBlogs3", handlebarBlogs3)
+            response.render("updateordelete", handlebarBlogs3) 
+    })
+})
+
 // dashboard route
 router.get("/dashboard", (request, response)=>{
     // logged in users only, protected route
@@ -67,7 +82,7 @@ router.get("/dashboard", (request, response)=>{
         // console.log("test of session userLoginId:", userLoginId)
         // console.log("test of session userLoginId:", request.session.userLoginId)
         const handlebarBlogs2 = blogData.toJSON()
-        console.log("test of handlebarBlogs2", handlebarBlogs2)
+        // console.log("test of handlebarBlogs2", handlebarBlogs2)
             response.render("dashboard", handlebarBlogs2) 
             // allBlogs2:handlebarBlogs2
     })

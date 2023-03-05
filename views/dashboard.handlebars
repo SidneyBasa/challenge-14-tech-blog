@@ -4,18 +4,19 @@
 {{#each Blogs}}
     
     {{!-- {{#if UserLogin}} --}}
-    <section class="box">
-    <div class="blog_top">  
-        <span class="title">{{blog_title}}</span>
+    <section class="box" data-id="{{id}}" href="/updateordelete">
+    <div data-id="{{id}}" class="blog_top">  
+        <span class="title" data-id="{{id}}">{{blog_title}}</span>
     Date of blog: {{blog_date}}
     </div>
-    <div>
+    <div data-id="{{id}}">
     {{!-- <p> {{Blog.blogpost}}</p> --}}
-    <p> {{blogpost}}</p>
+    <p data-id="{{id}}"> {{blogpost}}</p>
+    <p id="id_section" data-id="{{id}}">{{id}} </p>
     <a id="commented" href="/comment"> add comment</a>
     </div>
 
-    {{!-- <p id="id_section"> blog ID test {{id}} </p> --}}
+    
     {{!-- blog is a key transferred from the frontEndController.js file --}}
     {{!-- test: {{username}} --}}
     {{!-- test: {{UserLogin.username}} --}}
@@ -33,5 +34,7 @@
     <input type="text" id="posting" placeholder="type blog here">
     <button id="postButton">Post</button>
 </form>
+
+
 
 <script src="/js/dashboard.js"></script>

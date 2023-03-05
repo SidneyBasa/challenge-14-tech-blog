@@ -1,0 +1,11 @@
+{{#each Blogs}}
+<div>
+ <span class="titleupdate">id: {{id}} title: {{blog_title}}</span>
+</div>
+{{/each}}
+<form id="dashboardForm">
+    <input type="text" id="title" placeholder="title of blog">
+    <input type="text" id="posting" placeholder="type blog here">
+    <button id="updateButton">Update</button>
+    <button id="deleteButton">Delete</button>
+</form>

@@ -33,6 +33,34 @@ router.get("/:id", (request, response)=>{
     })
 })
 
+// route to update a blog
+// http: // localhost:3001/api/blogs
+router.put("/", (request, response)=>{
+    if(request.session.userLoginId) {
+            Blog.update({
+            blog_title:request.body.blog_title,
+            blogpost:request.body.blogpost,
+            blog_time:request.body.blog_time,
+            blog_date:request.body.blog_date,
+            // Attaches the userId stored in sessions to the UserId of the json data
+            UserLoginId:request.session.userLoginId,
+            
+        }).then(blogData=>{
+            // console.log("Test at blog creation for blogData:", blogData)
+            response.json(blogData)
+        })
+        .catch(error=>{
+            console.log("\x1B[33m----------------------------------------------")
+            // console.log("\x1B[36mPost request error:", error.errors[0].message);
+            console.log(error);
+            console.log("\x1B[33m----------------------------------------------\x1b[0m")
+            response.status(500).json({msg:"oh noes!", error})
+        })
+    } else {
+        return response.status(403).json({msg:"You must login or sign up to create a blog"})
+    }
+})
+
 
 // route to create a blog
 // http: // localhost:3001/api/blogs
@@ -48,11 +76,11 @@ router.post("/", (request, response)=>{
             blog_date:request.body.blog_date,
     
             // Attaches the userId stored in sessions to the UserId of the json data
-            UserLoginId:request.body.username,
+            UserLoginId:request.session.userLoginId,
             
     
         }).then(blogData=>{
-            
+            // console.log("Test at blog creation for blogData:", blogData)
             response.json(blogData)
         })
         .catch(error=>{
