@@ -14,6 +14,8 @@ const PORT = process.env.PORT || 3001;
 // defining database tables
 const {Blog, UserLogin} = require('./models')
 
+
+
 // session package cookie string
 // cookie expires at 3 hours
 // resave is set to not create a new cookie when no new data is present

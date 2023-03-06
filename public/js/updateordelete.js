@@ -20,26 +20,36 @@
 //     })
 // })
 
+document.querySelector("#updateForm").addEventListener("click",event=>{
+        event.preventDefault();
+
+let testOfSessionStorage = sessionStorage.getItem('blogExtracted')
+console.log("========================================")
+console.log(`Test of sessionStorage value of key blogExtracted: ${testOfSessionStorage}`)
+console.log("========================================")
+    })    
+
+
 // Saturday March 4 2023 @ 6:33pm
 // adding click detection for each section
-document.querySelectorAll(".box").forEach(section=> {
-    section.addEventListener('click', (e) => {
-        console.log("A section box has been detected")
-        fetch("/api/blogs",{
-            method:"PUT",
-            body:JSON.stringify(blogObj),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        }).then(res=>{
-            if(res.ok){
-               location.href="/dashboard"
-            //    console.log("=========================")
-            //    console.log("Test of redirect after blog post creation")
-            //    console.log("=========================")
-            } else {
-                alert("Please login before updating a blog post")
-            }
-        })
-    })
-})
+// document.querySelectorAll(".box").forEach(section=> {
+//     section.addEventListener('click', (e) => {
+//         console.log("A section box has been detected")
+//         fetch("/api/blogs",{
+//             method:"PUT",
+//             body:JSON.stringify(blogObj),
+//             headers:{
+//                 "Content-Type":"application/json"
+//             }
+//         }).then(res=>{
+//             if(res.ok){
+//                location.href="/dashboard"
+//             //    console.log("=========================")
+//             //    console.log("Test of redirect after blog post creation")
+//             //    console.log("=========================")
+//             } else {
+//                 alert("Please login before updating a blog post")
+//             }
+//         })
+//     })
+// })

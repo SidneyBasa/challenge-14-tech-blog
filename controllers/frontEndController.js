@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const {UserLogin, Blog, Comment} = require('../models');
 
+let blogThatIsBeingQueried = ''
+
 // first view
 // homepage
 // first route
@@ -51,16 +53,32 @@ router.get("/profile", (request, response)=>{
 })
 
 // updateordelete route
-router.get("/updateordelete", (request, response)=>{
+router.get("/updateordelete/:id", (request, response)=>{
     if(!request.session.userLoginId){
         return response.redirect("/login")
     }
-    UserLogin.findByPk(request.session.userLoginId, {
-        include:[Blog]
+    // get session user blogs only
+    // UserLogin.findByPk(request.session.userLoginId, {
+    //     include:[Blog]
+    Blog.findByPk(request.params.id,{
+        include:[UserLogin]
+        
     }
     ).then(blogData=>{
+        
         const handlebarBlogs3 = blogData.toJSON()
         console.log("test of handlebarBlogs3", handlebarBlogs3)
+
+        // const sessionStorageRetrieval = sessionStorage.getItem('blogExtracted')
+        // const sessionStorageRetrieval = request.sessionStorage.getItem('blogExtracted')
+        // const sessionStorageRetrieval = request.session
+        // console.log("Test of sessionStorageRetrieval", sessionStorageRetrieval)
+        // console.log("Test of session storage data", session)
+
+
+
+        // console.log("Test of global variable blogThatIsBeingQueried at frontEndController.js: ", blogThatIsBeingQueried)
+        // console.log(`Test of sessionStorage value of key blogExtracted: ${testOfSessionStorage}`)
             response.render("updateordelete", handlebarBlogs3) 
     })
 })

@@ -1,11 +1,15 @@
-{{#each Blogs}}
+{{!-- {{#each Blogs}} --}}
 <div>
- <span class="titleupdate">id: {{id}} title: {{blog_title}}</span>
+ <h2 class="titleupdate">Edit blog</h2>
+ <h3>Blog ID:{{id}}</h3>
+ <h3>Blog title: {{blog_title}}</h3>
 </div>
-{{/each}}
-<form id="dashboardForm">
-    <input type="text" id="title" placeholder="title of blog">
-    <input type="text" id="posting" placeholder="type blog here">
+{{!-- {{/each}} --}}
+<form id="updateForm">
+    <input type="text" id="title" placeholder="{{blog_title}}">
+    <input type="text" id="posting" placeholder="{{blogpost}}">
     <button id="updateButton">Update</button>
     <button id="deleteButton">Delete</button>
 </form>
+
+<script src="/js/updateordelete.js"></script>

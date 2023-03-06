@@ -1,3 +1,5 @@
+
+// event listener to create a blog post from the dashboard
 document.querySelector("#dashboardForm").addEventListener("submit",event=>{
     // console.log("=========================")
     // console.log("Test of fetch request at dashboard.js after blog post creation")
@@ -33,6 +35,8 @@ document.querySelector("#dashboardForm").addEventListener("submit",event=>{
 
 console.log("Test of of console log")
 
+// event listener when a blog post is clicked
+// engages the update or delete one blog view
 document.querySelectorAll(".box").forEach(section=> {
     section.addEventListener('click', (event) => {
         event.preventDefault();
@@ -48,7 +52,9 @@ document.querySelectorAll(".box").forEach(section=> {
     // console.log("Test of blog ID", blog_id)
 
     const get_section_id = event.target.getAttribute("data-id")
-    console.log("test of get attribute id_section", get_section_id)
+    // console.log("test of get attribute id_section", get_section_id)
+
+    // console.log("test:", get_section_id)
     
     // console.log("test of event", event)
     // console.log("test of event.AT_TARGET", event.AT_TARGET)
@@ -60,23 +66,43 @@ document.querySelectorAll(".box").forEach(section=> {
     // console.log("test of event.getAttribute", event.target.getAttribute('#id_section'))
     // console.log("test of event.getAttribute('data-id')", event.target.getAttribute('data-id'))
 
+    // Sunday March 5 2023
+    // store the blog that was clicked to the global variable
+    // blogThatIsBeingQueried = get_section_id
+    // console.log("Test of global variable blogThatIsBeingQueried at dashboard.js: ", blogThatIsBeingQueried)
 
-            //    location.href="/updateordelete"
-   
-        // fetch("/api/blogs",{
-        //     method:"PUT",
-        //     body:JSON.stringify(blogObj),
-        //     headers:{
-        //         "Content-Type":"application/json"
-        //     }
-        // }).then(res=>{
-        //     if(res.ok){
-        //        location.href="/dashboard"
+    // Sunday March 5 2023
+    // first usage of session storage
 
-        //     } else {
-        //         alert("Please login before updating a blog post")
-        //     }
-        // })
+    sessionStorage.setItem('blogExtracted', get_section_id)
+
+    // let testOfSessionStorage = sessionStorage.getItem('blogExtracted')
+    // console.log(`Test of sessionStorage value of key blogExtracted: ${testOfSessionStorage}`)
+
+    console.log(`fetch request being sent to /api/blogs/${get_section_id}`)
+
+        var requestOneBlog = `/api/blogs/${get_section_id}`
+
+        fetch(requestOneBlog, {
+            method:"get",
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(response=>{
+            if(response.ok){
+                location.href=`/updateordelete/${get_section_id}`
+                // console.log("test of get_section_id at fetch request", get_section_id)
+                // console.log("test of response from fetch request", response)
+                // const convertedResponse = response.toJSON()
+                return response.json()
+                // console.log("test of convertedResponse ",convertedResponse)
+            } else {
+                alert("Please login before updating a blog post")
+            }
+        }).then(function (ResopnseData) {
+            // console.log("Value of ResopnseData", ResopnseData)
+        })
+
     })
 })
 
