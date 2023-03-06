@@ -35,19 +35,23 @@ router.get("/:id", (request, response)=>{
 
 // route to update a blog
 // http: // localhost:3001/api/blogs
-router.put("/", (request, response)=>{
+router.put("/:id", (request, response)=>{
     if(request.session.userLoginId) {
             Blog.update({
             blog_title:request.body.blog_title,
-            blogpost:request.body.blogpost,
-            blog_time:request.body.blog_time,
-            blog_date:request.body.blog_date,
-            // Attaches the userId stored in sessions to the UserId of the json data
-            UserLoginId:request.session.userLoginId,
-            
-        }).then(blogData=>{
+            blogpost:request.body.blogpost,    
+        },
+        {
+            where: {
+                id: request.params.id
+            }
+        }
+        ).then(blogData=>{
             // console.log("Test at blog creation for blogData:", blogData)
-            response.json(blogData)
+            console.log("\x1B[33m----------------------------------------------")
+            console.log("Test at update function in blogController.js", blogData)
+            console.log("\x1B[33m----------------------------------------------")
+            response.render("dashboard")
         })
         .catch(error=>{
             console.log("\x1B[33m----------------------------------------------")
@@ -102,6 +106,7 @@ router.delete("/:id", (request, response)=>{
     // Route protection shell
     if(request.session.userLoginId) {
            
+        console.log("Test of data from delete route", request.body)
         // find the blog by the primary key
         Blog.findByPk(request.params.id).then(blogData=>{
            
@@ -113,7 +118,8 @@ router.delete("/:id", (request, response)=>{
         // matches the current logged in user id / the id of the session cookie    
         } else if (blogData.UserLoginId!== request.session.userLoginId){
             // status 403 is forbidden
-            return response.status(403).json({msg: "This is not your blog post"})
+            return response.status(403)
+            .json({msg: "Cannot destroy this blog post if not logged in"})
         }
         Blog.destroy({
             where:{
@@ -131,7 +137,6 @@ router.delete("/:id", (request, response)=>{
             console.log("Something went wrong when destroying the blog post", error)
             response.status(500).json({msg:"Something went wrong when removing a blog post",error})
         })
-
         }
         // this catch error is in the event the router.delete route does not connect or other errors
         ).catch(error=>{
