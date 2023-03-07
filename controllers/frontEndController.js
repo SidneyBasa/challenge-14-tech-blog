@@ -11,6 +11,12 @@ let blogThatIsBeingQueried = ''
 router.get("/", (request, response)=>{
     // Adding data for blog posts to the home page
     Blog.findAll({
+        // ================================================================
+        // had to add the following line to prevent Heroku deployment error
+        // https://github.com/sequelize/sequelize/issues/4146
+        // March 6 2023 @ 8:38pm - Sidney Basa
+        subQuery: false,
+        // ================================================================
         include:
         [
             { model: UserLogin }, 
