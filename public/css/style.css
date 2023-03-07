@@ -6,7 +6,7 @@
 }
 
 header, footer {
-    height: 10vh;
+    height: 100px;
     background: darkblue;
 }
 
@@ -37,7 +37,9 @@ a:hover{
 }
 
 .box{
-    height: 150px;
+    display: flex;
+    flex-direction: column;
+    /* height: 150px; */
     width: 500px;
     background: black;
     margin: 10px;
@@ -133,9 +135,10 @@ p {
 #commented {
     display: flex;
     width: 120px;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-left:350px;
     font-size: 16px;
+
 }
 
 h3 {

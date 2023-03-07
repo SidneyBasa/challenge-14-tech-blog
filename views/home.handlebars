@@ -2,26 +2,29 @@
 {{!-- <h3>The cat is currently: {{ cat }} </h3> --}}
 <h2>All blog posts</h2>
 {{!-- allBlogs is a key of a key value pair created in the frontEndController.js file --}}
+{{!-- allBlogs:homeHandleBarBlogs line 42 --}}
 {{#each allBlogs}}
-    <section class="box">
+    <section class="box" data-id="{{id}}">
         
-    <div class="blog_top">  
+    <div class="blog_top" data-id="{{id}}">  
         <span class="title">{{blog_title}}</span>
     posted by: {{UserLogin.username}} on {{blog_date}}
     
     
     </div>
     {{!-- blog is a key transferred from the frontEndController.js file --}}
-    <div>
+    <div data-id="{{id}}">
     <p> {{blogpost}}</p>
-    {{!-- <p id="id_section"> blog ID test {{id}} </p> --}}
-    <a id="commented" href="/comment"> add comment</a>
+    <p id="id_section" data-id="{{id}}"> blog ID: {{id}} </p>
+    {{#each Comments}}
+    <p>Comments: {{comment}}</p>
+    {{/each}}
     </div>
-    
     </section>
+    <a id="commented" href="/comment" comment-data-id="{{id}}"> add comment</a>
 {{/each}}
 
-{{!-- <script>
+<script src="/js/home.js">
     // console.log("Test of blog document", document.children[0].children[1].children[1].children[4].children[0])
-
-</script> --}}
+    
+</script> 

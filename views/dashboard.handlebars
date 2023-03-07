@@ -1,5 +1,6 @@
 <h2>Dashboard</h2>
 <h4> Blogs created by {{username}}:</h4>
+<h4> Click on one of your blogs here to update or delete:</h4>
 
 {{#each Blogs}}
     
@@ -7,16 +8,15 @@
     <section class="box" data-id="{{id}}" href="/updateordelete">
     <div data-id="{{id}}" class="blog_top">  
         <span class="title" data-id="{{id}}">{{blog_title}}</span>
+        <span class="blogAuthor">Posted by: {{UserLogin.username}}</span>
     Date of blog: {{blog_date}}
     </div>
     <div data-id="{{id}}">
     {{!-- <p> {{Blog.blogpost}}</p> --}}
     <p data-id="{{id}}"> {{blogpost}}</p>
-    <p id="id_section" data-id="{{id}}">{{id}} </p>
-    <a id="commented" href="/comment"> add comment</a>
+    <p id="id_section" data-id="{{id}}">Blog ID: {{id}} </p>
     </div>
 
-    
     {{!-- blog is a key transferred from the frontEndController.js file --}}
     {{!-- test: {{username}} --}}
     {{!-- test: {{UserLogin.username}} --}}
@@ -27,6 +27,7 @@
     {{!-- {{allBlogs}} --}}
     {{!-- {{/if}} --}}
     </section>
+    {{!-- <a id="commented" href="/comment"> add comment</a> --}}
 {{/each}}
 
 <form id="dashboardForm">

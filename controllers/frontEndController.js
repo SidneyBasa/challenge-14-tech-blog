@@ -11,8 +11,18 @@ let blogThatIsBeingQueried = ''
 router.get("/", (request, response)=>{
     // Adding data for blog posts to the home page
     Blog.findAll({
-
-        include:[UserLogin]
+        include:
+        [
+            { model: UserLogin }, 
+            { model: Comment},
+            // where: {
+            //     id: 3
+            // }
+            // limit: 7,
+            // nested: true,
+            // all: true,
+    ]
+        // include:[Comment]
 
     }).then(blogData=>{
         // checking blogData in the terminal
@@ -21,15 +31,15 @@ router.get("/", (request, response)=>{
         // Converting raw data to the JSON format
         // Takes the property blogpost which is defined in the model Blog at blog.js 
         // and converts it into json format
-        const handlebarBlogs = blogData.map(blogpost=>blogpost.toJSON())
+        const homeHandlebarBlogs = blogData.map(blogpost=>blogpost.toJSON())
         // const handlebarBlogsTime = blogData.map(blog_time=>blog_time.toJSON())
         // const handlebarBlogsDate = blogData.map(blog_date=>blog_date.toJSON())
         // transfer the JSON formatted data to allBlogs
         // The allBlogs key is passed into home.handlebars
-        console.log("Value of handlebarBlogs", handlebarBlogs)
+        console.log("Value of homeHandlebarBlogs", homeHandlebarBlogs)
 
             response.render("home", {
-            allBlogs:handlebarBlogs,
+            allBlogs:homeHandlebarBlogs,
             // alltimes:handlebarBlogsTime,
             // alldates:handlebarBlogsDate
             
@@ -65,9 +75,10 @@ router.get("/updateordelete/:id", (request, response)=>{
     }
     ).then(blogData=>{
         
+        if (blogData){
         const handlebarBlogs3 = blogData.toJSON()
         console.log("test of handlebarBlogs3", handlebarBlogs3)
-
+        
         // const sessionStorageRetrieval = sessionStorage.getItem('blogExtracted')
         // const sessionStorageRetrieval = request.sessionStorage.getItem('blogExtracted')
         // const sessionStorageRetrieval = request.session
@@ -76,6 +87,7 @@ router.get("/updateordelete/:id", (request, response)=>{
         // console.log("Test of global variable blogThatIsBeingQueried at frontEndController.js: ", blogThatIsBeingQueried)
         // console.log(`Test of sessionStorage value of key blogExtracted: ${testOfSessionStorage}`)
             response.render("updateordelete", handlebarBlogs3) 
+        }
     })
 })
 
@@ -96,7 +108,7 @@ router.get("/dashboard", (request, response)=>{
         // console.log("test of session userLoginId:", userLoginId)
         // console.log("test of session userLoginId:", request.session.userLoginId)
         const handlebarBlogs2 = blogData.toJSON()
-        // console.log("test of handlebarBlogs2", handlebarBlogs2)
+        console.log("test of handlebarBlogs2", handlebarBlogs2)
             response.render("dashboard", handlebarBlogs2) 
             // allBlogs2:handlebarBlogs2
     })

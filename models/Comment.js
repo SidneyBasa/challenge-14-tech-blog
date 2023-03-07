@@ -7,6 +7,14 @@ Comment.init({
         comment: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        blogPostNumber: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
         
 },{

@@ -136,3 +136,31 @@ document.querySelectorAll(".box").forEach(section=> {
 //     // })
 // })
 // ======= Test successfull to return ID of one section box =============
+
+
+// comment button
+
+    // // add a comment
+    // document.querySelector("#commented").addEventListener("click", event=>{
+    //     let testOfSessionStorage2 = sessionStorage.getItem('blogExtracted')
+    //     event.preventDefault();
+        
+    //     fetch("/api/comment/", {
+    //       method:"get",
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     })
+    //     .then(res=>{
+    //         if(res.ok){
+    //            location.href="/comment"
+    //            console.log("=========================")
+    //            console.log("Test of comment button at dashboard")
+    //            console.log("=========================")
+    //         } else {
+    //             alert("Please login before creating a blog post")
+    //         }
+    //     })
+        
+
+    // })

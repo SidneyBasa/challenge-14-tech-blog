@@ -21,6 +21,7 @@ router.get("/", (request, response)=>{
 
 // Get one comment
 router.get("/:id", (request, response)=>{
+    // if(request.session.userLoginId) {
     Comment.findByPk(request.params.id,{
         include:[Blog]
     })
@@ -32,23 +33,37 @@ router.get("/:id", (request, response)=>{
         response.status(500)
         .json({msg:"blog data for this user could not be found!", error})
     })
+// } else {
+//     return response.status(403).json({msg:"You must login or sign up to create a blog"})
+// }
 })
 
 
-// route to create a blog
-router.post("/", (request, response)=>{
+// route to create a comment
+router.post("/:id", (request, response)=>{
     
     // Route protection shell
     if(request.session.userLoginId) {
+        // Blog.findByPk(request.params.id).then(blogData=>{
+            
         Comment.create({
-        
             comment:request.body.comment,
+            // Attaches the userId stored in sessions to the comment
+            username: request.session.username,
+            // Attaches the blog post ID to the comment
+            // test field for ID number
+            blogPostNumber: request.params.id,
+            // blogPostNumber: request.params,
+            // blogPostNumber: request.params.id.value,
+            // blogPostNumber: request.session.userLoginId,
 
-            // Attaches the userId stored in sessions to the UserId of the chirp json data
-            UserLoginId:request.session.userLoginId
+            // Attaches the user login ID to the comment as BlogId
+            BlogId: request.params.id,
     
-        }).then(blogData=>{
-            response.json(blogData)
+        }).then(commentData=>{
+        
+            response.json(commentData)
+            console.log("Test of commentData", commentData)
         })
         .catch(error=>{
             console.log("\x1B[33m----------------------------------------------")
@@ -57,13 +72,14 @@ router.post("/", (request, response)=>{
             console.log("\x1B[33m----------------------------------------------\x1b[0m")
             response.status(500).json({msg:"oh noes!", error})
         })
-
+    // }
+    // )
     } else {
         return response.status(403).json({msg:"You must login or sign up to add a comment to a blog"})
     }
 })
 
-// route to delete a blog
+// route to delete a comment
 router.delete("/:id", (request, response)=>{
     
     // Route protection shell
